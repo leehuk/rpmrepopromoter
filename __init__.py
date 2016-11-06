@@ -1,0 +1,1 @@
+from .repopromoter import app

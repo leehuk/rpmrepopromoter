@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "base-menu.html" %}
+<div id='formarea'>
+	<form action='{{ url_for('flow_add') }}' method='POST'>
+		<input type='text' id='flowname' name='flowname' placeholder='Flow Name' required autofocus>
+		<select id='flowsource' name='flowsource' required>
+			<option value='' disabled selected hidden>Select Source Repo</option>
+			{% for repo in repos %}
+			<option value='{{ repo.repoid }}'>{{ repo.reponame }}</option>
+			{% endfor %}
+		</select>
+		<select id='flowdest' name='flowdest' required>
+			<option value='' disabled selected hidden>Select Dest Repo</option>
+			{% for repo in repos %}
+			<option value='{{ repo.repoid }}'>{{ repo.reponame }}</option>
+			{% endfor %}
+		</select>
+
+		<button class='button buttonon' type='submit'>Add Flow</button>
+	</form>
+</div>
+{% endblock %}

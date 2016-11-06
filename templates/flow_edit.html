@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "base-menu.html" %}
+<div id='formarea'>
+	<form action='{{ url_for('flow_edit', flowid=flow.flowid) }}' method='POST'>
+		<input type='text' id='flowname' name='flowname' placeholder='Flow Name' value='{{ flow.flowname }}' required autofocus>
+		<select id='flowsource' name='flowsource' required>
+			{% for repo in repos %}
+			{% if repo.repoid == flow.flowsource %}
+			<option value='{{ repo.repoid }}' selected>{{ repo.reponame }}</option>
+			{% else %}
+			<option value='{{ repo.repoid }}'>{{ repo.reponame }}</option>
+			{% endif %}
+			{% endfor %}
+		</select>
+		<select id='flowdest' name='flowdest' required>
+			<option value='' disabled selected hidden>Select Dest Repo</option>
+			{% for repo in repos %}
+			{% if repo.repoid == flow.flowdest %}
+			<option value='{{ repo.repoid }}' selected>{{ repo.reponame }}</option>
+			{% else %}
+			<option value='{{ repo.repoid }}'>{{ repo.reponame }}</option>
+			{% endif %}
+			{% endfor %}
+		</select>
+
+		<button class='button buttonon' type='submit'>Update Flow</button>
+	</form>
+</div>
+{% endblock %}

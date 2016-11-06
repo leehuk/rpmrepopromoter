@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "base-menu.html" %}
+<a href='{{ url_for('flow_add') }}'><button class='button buttonon' style='margin-bottom: 30px'>Add Flow</button></a>
+<table class='std'>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>From</th>
+			<th>To</th>
+			<th colspan='2'>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for flow in flows %}
+	<tr style='border-top: 1px solid #aaa;'>
+		<td>{{ flow.flowname }}</td>
+		<td>{{ flow.reposource.reponame }}</td>
+		<td>{{ flow.repodest.reponame }}</td>
+		<td class='buttons'><a href='{{ url_for('flow_edit', flowid=flow.flowid) }}'><button class='button buttonon'>Edit</button></a></td>
+		<td class='buttons'>
+			<form action='{{ url_for('flow_delete', flowid=flow.flowid) }}' method='POST'>
+				<button class='button buttonon' type='submit'>Delete</button>
+			</form>
+		</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

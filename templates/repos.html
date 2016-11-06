@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "base-menu.html" %}
+<a href='{{ url_for('repo_add') }}'><button class='button buttonon' style='margin-bottom: 30px'>Add Repo</button></a>
+<table class='std'>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>URL</th>
+			<th colspan='2'>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for repo in repos %}
+	<tr>
+		<td>{{ repo.reponame }}</td>
+		<td>{{ repo.repourl }}</td>
+		<td class='buttons'><a href='{{ url_for('repo_edit', repoid=repo.repoid) }}'><button class='button buttonon'>Edit</button></a></td>
+		<td class='buttons'>
+			<form action='{{ url_for('repo_delete', repoid=repo.repoid) }}' method='POST'>
+				<button class='button buttonon' type='submit'>Delete</button>
+			</form>
+		</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

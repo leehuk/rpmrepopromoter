@@ -1,0 +1,7 @@
+<ul id='menu'>
+	{% for name, desc in menuitems %}
+	<li {% if name == request.endpoint %}class='active'{% endif %}><a href='{{ url_for(name) }}'>{{ desc }}</a></li>
+	{% endfor %}
+	<li style='float: right;'><a href='/logout'>Logged in: {{ session.username }}</a></li>
+</ul>
+<br />

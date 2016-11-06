@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "base-menu.html" %}
+<div id='formarea'>
+	<form action='{{ url_for('repo_edit', repoid=repo.repoid) }}' method='POST'>
+		<input type='text' id='reponame' name='reponame' placeholder='Repo Name' value='{{ repo.reponame }}' required autofocus>
+		<input type='text' id='repourl' name='repourl' placeholder='Repo URL' value='{{ repo.repourl }}' required>
+		<button class='button buttonon' type='submit'>Update Repo</button>
+	</form>
+</div>
+{% endblock %}

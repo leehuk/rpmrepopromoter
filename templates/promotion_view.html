@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "base-menu.html" %}
+<a href='{{ url_for('promotion_sync', flowid=flow.flowid) }}'><button class='button buttonon' style='margin-bottom: 30px'>Promote Repo</button></a>
+<table class='std'>
+	<thead>
+		<tr>
+			<th>Package</th>
+			<th>State</th>
+			<th>Source</th>
+			<th>Destination</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for rpm,states in rpmdiff|dictsort %}
+		{% if states['added'] is defined %}
+			<tr style='border-top: 1px solid #aaa;'>
+				<td>{{ rpm }}</td>
+				<td>Added</td>
+				<td></td>
+				<td>
+					{% for version in states['added'] %}
+					{{ version }}<br />
+					{% endfor %}
+				</td>
+			</tr>
+		{% endif %}
+		{% if states['upgraded_src'] is defined or states['upgraded_dst'] is defined %}
+			<tr style='border-top: 1px solid #aaa;'>
+				<td>{{ rpm }}</td>
+				<td>Upgraded</td>
+				<td>
+					{% for version in states['upgraded_src'] %}
+					{{ version }}<br />
+					{% endfor %}
+				</td>
+				<td>
+					{% for version in states['upgraded_dst'] %}
+					{{ version }}<br />
+					{% endfor %}
+				</td>
+			</tr>
+		{% endif %}
+		{% if states['removed'] %}
+			<tr style='border-top: 1px solid #aaa;'>
+				<td>{{ rpm }}</td>
+				<td>Removed</td>
+				<td>
+					{% for version in states['removed'] %}
+					{{ version }}<br />
+					{% endfor %}
+				</td>
+				<td></td>
+			</tr>
+		{% endif %}
+	{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body %}
+<div id='main'>
+	<div id='formarea'>
+		<form action='/login' method='POST'>
+			<input type='text' id='username' name='username' placeholder='Username' style='margin-top: 100px' autofocus>
+			<input type='password' id='password' name='password' placeholder='Password'>
+			<button class='button buttonon' type='submit'>Login</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

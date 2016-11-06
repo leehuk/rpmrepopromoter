@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "base-menu.html" %}
+<table class='std'>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>From</th>
+			<th>To</th>
+			<th>View</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for flow in flows %}
+	<tr style='border-top: 1px solid #aaa;'>
+		<td>{{ flow.flowname }}</td>
+		<td>{{ flow.reposource.reponame }}</td>
+		<td>{{ flow.repodest.reponame }}</td>
+		<td class='buttons'><a href='{{ url_for('promotion_view', flowid=flow.flowid) }}'><button class='button buttonon'>View Differences</button></a></td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

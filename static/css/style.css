@@ -1,0 +1,161 @@
+html,body
+{
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: Verdana;
+}
+
+div#container
+{
+	height: 100%;
+	width: 100%;
+}
+div#header
+{
+	height: 80px;
+	width: 100%;
+	background-color: #111;
+	text-align: center;
+	font-size: 48px;
+	font-family: Verdana;
+	color: #fff;
+}
+div#headerbar
+{
+	height: 6px;
+	width: 100%;
+	background: #6495ED;
+	background: linear-gradient(to right, #6495ED, #6495ED, #6495ED, white);
+}
+div#content
+{
+	height: calc(100% - 86px);
+	width: 100%;
+	background-color: #233440;
+	color: #ddd;
+	text-align: center;
+	overflow: auto;
+}
+div#formarea
+{
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+input, select
+{
+	width: 500px;
+	height: 20px;
+	margin-bottom: 5px;
+	background-color: #233440;
+	color: #bbb;
+	border: 0;
+	border-bottom: 1px solid white;
+	outline: none;
+}
+input:focus
+{
+	border-bottom: 2px solid #6495ED;
+}
+
+ul#menu
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #222;
+	font-size: 18px;
+	font-family: Righteous,Verdana;
+}
+ul#menu li
+{
+	float: left;
+	text-align: center;
+}
+ul#menu li a
+{
+	display: block;
+	color: #ccc;
+	padding: 10px 20px;
+	text-decoration: none;
+}
+ul#menu li span
+{
+	display: block;
+	color: white;
+	padding: 10px 20px;
+	font-family: Righteous,Verdana;
+}
+ul#menu li a:hover
+{
+	border-bottom: 2px solid white;
+	color: white;
+}
+ul#menu li.active
+{
+	border-bottom: 2px solid #6495ED;
+}
+ul#menu li.active a:hover
+{
+	border-bottom: 0;
+	color: #ccc;
+}
+table.std
+{
+	border-collapse: collapse;
+	border: 0;
+	margin: 0 auto;
+}
+table.std th
+{
+	border-bottom: 1px solid #ccc;
+	padding: 5px 20px 5px 0px;
+	margin: 0;
+	font-family: Righteous,Verdana;
+	font-size: 22px;
+	font-weight: normal;
+	text-align: left;
+}
+table.std th:last-child
+{
+	padding: 5px 0px;
+}
+table.std td
+{
+	padding: 5px 20px 5px 0px;
+	margin: 0;
+	font-weight: normal;
+	text-align: left;
+	vertical-align: top;
+}
+table.std td.buttons
+{
+	padding: 5px 0px;
+}
+button.button, span.button
+{
+	appearance: button;
+	text-decoration: none;
+	display: inline-block;
+	background-color: #294046;
+	border: 1px solid #888;
+	border-radius: 10px;
+	border-collapse: collapse;
+	padding: 5px 20px;
+	margin: 0;
+	color: white;
+	font-size: 14px;
+}
+button.buttonon:hover
+{
+	background-color: #6495ED;
+}
+span.buttonoff
+{
+	opacity: 0.4;
+	cursor: not-allowed;
+}
