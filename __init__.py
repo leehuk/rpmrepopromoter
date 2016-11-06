@@ -1,1 +1,1 @@
-from .repopromoter import app
+from .rpmrepopromoter import app

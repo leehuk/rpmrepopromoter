@@ -1,5 +1,5 @@
 from flask_script import Manager
-from repopromoter import app, db
+from rpmrepopromoter import app, db
 
 manager = Manager(app)
 
