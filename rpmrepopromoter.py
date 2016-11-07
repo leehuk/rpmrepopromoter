@@ -77,6 +77,11 @@ def repo_validate(form):
 	if not form['repourl']:
 		return 'Missing form field "repourl"'
 
+	if '"' in form['reponame'] or "'" in form['reponame']:
+		return 'reponame cannot contain quote characters'
+	if '"' in form['repourl'] or "'" in form['repourl']:
+		return 'repourl cannot contain quote characters'
+
 	return False
 
 @app.route('/repos')
@@ -132,6 +137,8 @@ def flow_validate(form):
 	if not form['flowdest']:
 		return 'Missing form field "flowdest"'
 
+	if '"' in form['flowname'] or "'" in form['flowname']:
+		return 'flowname cannot contain quote characters'
 	if not Repo.query.get(form['flowsource']):
 		return 'Invalid form field "flowsource"'
 	if not Repo.query.get(form['flowdest']):
