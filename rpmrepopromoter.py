@@ -10,6 +10,15 @@ app.config.from_pyfile('config.cfg')
 
 app.wsgi_app = ProxyFix(app.wsgi_app)
 
+if not 'USERNAME' in app.config or not 'PASSWORD' in app.config:
+	raise Exception('Configuration Error (config.cfg): Missing USERNAME or PASSWORD option')
+if not 'RPMREPODIFF' in app.config or not os.path.isfile(app.config['RPMREPODIFF']):
+	raise Exception('Configuration Error (config.cfg): Missing or invalid RPMREPODIFF option')
+if not 'PROMOTIONCMD' in app.config:
+	raise Exception('Configuration Error (config.cfg): Missing PROMOTIONCMD option')
+if not 'SQLALCHEMY_DATABASE_URI' in app.config:
+	raise Exception('Configuration Error (config.cfg): Missing SQLALCHEMY_DATABASE_URI option')
+
 db = SQLAlchemy(app)
 
 menuitems = [
