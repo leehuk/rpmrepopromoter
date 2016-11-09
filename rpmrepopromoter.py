@@ -79,6 +79,29 @@ def promotion_view(flowid):
 @app.route('/promotion/sync/<int:flowid>')
 def promotion_sync(flowid):
 	flow = Flow.query.get_or_404(flowid)
+	flow.reposource = Repo.query.get(flow.flowsource)
+	flow.repodest = Repo.query.get(flow.flowdest)
+
+	if 'PROMOTIONCMD_QUOTE' in app.config and app.config['PROMOTIONCMD_QUOTE']:
+		quotechar = "'"
+	else:
+		quotechar = ""
+
+	promocmdstr = app.config['PROMOTIONCMD']
+	promocmdstr = promocmdstr.replace('__FLOW_NAME__', quotechar + flow.flowname + quotechar)
+	promocmdstr = promocmdstr.replace('__REPOSRC_NAME__', quotechar + flow.reposource.reponame + quotechar)
+	promocmdstr = promocmdstr.replace('__REPOSRC_URL__', quotechar + flow.reposource.repourl + quotechar)
+	promocmdstr = promocmdstr.replace('__REPODST_NAME__', quotechar + flow.repodest.reponame + quotechar)
+	promocmdstr = promocmdstr.replace('__REPODST_URL__', quotechar + flow.repodest.repourl + quotechar)
+
+	promocmd = subprocess.Popen(promocmdstr, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	stdout, stderr = promocmd.communicate()
+	retval = promocmd.returncode
+
+	if retval != 0:
+		return render_template('error.html', menuitems=menuitems, error='Failed to run sync: ' + stderr)
+
+	return redirect(url_for('promotion'))
 
 def repo_validate(form):
 	if not form['reponame']:
