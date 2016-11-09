@@ -154,7 +154,7 @@ button.buttonon:hover
 {
 	background-color: #6495ED;
 }
-span.buttonoff
+button.buttonoff
 {
 	opacity: 0.4;
 	cursor: not-allowed;
