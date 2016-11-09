@@ -16,7 +16,13 @@
 		<td>{{ flow.flowname }}</td>
 		<td>{{ flow.reposource.reponame }}</td>
 		<td>{{ flow.repodest.reponame }}</td>
-		<td class='buttons'><a href='{{ url_for('promotion_view', flowid=flow.flowid) }}'><button class='button buttonon'>View Differences</button></a></td>
+		<td class='buttons'>
+			{% if flow.synced %}
+			<button class='button buttonoff'>Synced</button>
+			{% else %}
+			<a href='{{ url_for('promotion_view', flowid=flow.flowid) }}'><button class='button buttonon'>View Differences</button></a>
+			{% endif %}
+		</td>
 	</tr>
 	{% endfor %}
 	</tbody>

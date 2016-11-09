@@ -55,6 +55,16 @@ def promotion():
 		flow.reposource = Repo.query.get(flow.flowsource)
 		flow.repodest = Repo.query.get(flow.flowdest)
 
+		qdiffcmd = subprocess.Popen([app.config['RPMREPODIFF'], '-s', flow.reposource.repourl, '-d', flow.repodest.repourl, '-q'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		stdout, stderr = qdiffcmd.communicate()
+		retval = qdiffcmd.returncode
+
+		if retval != 0:
+			return render_template('error.html', menuitems=menuitems, error='Failed to run rpmrepodiff for ' + flow.flowname + ': ' + diffstderr)
+
+		diff = json.loads(stdout)
+		flow.synced = diff['synced']
+
 	return render_template('promotion.html', menuitems=menuitems, flows=flows)
 
 @app.route('/promotion/<int:flowid>')
