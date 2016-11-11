@@ -8,7 +8,8 @@ from werkzeug.contrib.fixers import ProxyFix
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 
-app.wsgi_app = ProxyFix(app.wsgi_app)
+if 'REVERSE_PROXY' in app.config and app.config['REVERSE_PROXY']:
+	app.wsgi_app = ProxyFix(app.wsgi_app)
 
 if not 'USERNAME' in app.config or not 'PASSWORD' in app.config:
 	raise Exception('Configuration Error (config.cfg): Missing USERNAME or PASSWORD option')
