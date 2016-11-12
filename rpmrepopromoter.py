@@ -61,9 +61,9 @@ def promotion():
 		retval = qdiffcmd.returncode
 
 		if retval != 0:
-			return render_template('error.html', menuitems=menuitems, error='Failed to run rpmrepodiff for ' + flow.flowname + ': ' + diffstderr)
+			return render_template('error.html', menuitems=menuitems, error='Failed to run rpmrepodiff for ' + flow.flowname + ': ' + stderr.decode("utf-8"))
 
-		diff = json.loads(stdout)
+		diff = json.loads(stdout.decode("utf-8"))
 		flow.synced = diff['synced']
 
 	return render_template('promotion.html', menuitems=menuitems, flows=flows)
@@ -75,13 +75,13 @@ def promotion_view(flowid):
 	flow.repodest = Repo.query.get(flow.flowdest)
 
 	diffcmd = subprocess.Popen([app.config['RPMREPODIFF'], '-s', flow.reposource.repourl, '-d', flow.repodest.repourl], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	diffstdout, diffstderr = diffcmd.communicate()
-	diffretval = diffcmd.returncode
+	stdout, stderr = diffcmd.communicate()
+	retval = diffcmd.returncode
 
-	if diffretval != 0:
-		return render_template('error.html', menuitems=menuitems, error='Failed to run rpmrepodiff: ' + diffstderr)
+	if retval != 0:
+		return render_template('error.html', menuitems=menuitems, error='Failed to run rpmrepodiff: ' + stderr.decode("utf-8"))
 
-	rpmdiff = json.loads(diffstdout)
+	rpmdiff = json.loads(stdout.decode("utf-8"))
 	if len(rpmdiff) == 0:
 		return render_template('promotion_insync.html', menuitems=menuitems, flow=flow)
 
@@ -110,7 +110,7 @@ def promotion_sync(flowid):
 	retval = promocmd.returncode
 
 	if retval != 0:
-		return render_template('error.html', menuitems=menuitems, error='Failed to run sync: ' + stderr)
+		return render_template('error.html', menuitems=menuitems, error='Failed to run sync: ' + stderr.decode("utf-8"))
 
 	return redirect(url_for('promotion'))
 
