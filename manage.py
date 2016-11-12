@@ -5,7 +5,6 @@ manager = Manager(app)
 
 @manager.command
 def initdb():
-	
 	db.create_all()
 
 if __name__ == '__main__':
