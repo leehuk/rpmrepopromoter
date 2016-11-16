@@ -61,7 +61,7 @@ def promotion():
 		retval = qdiffcmd.returncode
 
 		if retval != 0:
-			return render_template('error.html', menuitems=menuitems, error='Failed to run rpmrepodiff for ' + flow.flowname + ': ' + stderr.decode("utf-8"))
+			return render_template('error_monospace.html', menuitems=menuitems, error='Failed to run rpmrepodiff for ' + flow.flowname + ': ' + stderr.decode("utf-8"))
 
 		diff = json.loads(stdout.decode("utf-8"))
 		flow.synced = diff['synced']
@@ -79,7 +79,7 @@ def promotion_view(flowid):
 	retval = diffcmd.returncode
 
 	if retval != 0:
-		return render_template('error.html', menuitems=menuitems, error='Failed to run rpmrepodiff: ' + stderr.decode("utf-8"))
+		return render_template('error_monospace.html', menuitems=menuitems, error='Failed to run rpmrepodiff: ' + stderr.decode("utf-8"))
 
 	rpmdiff = json.loads(stdout.decode("utf-8"))
 	if len(rpmdiff) == 0:
@@ -110,7 +110,7 @@ def promotion_sync(flowid):
 	retval = promocmd.returncode
 
 	if retval != 0:
-		return render_template('error.html', menuitems=menuitems, error='Failed to run sync: ' + stderr.decode("utf-8"))
+		return render_template('error_monospace.html', menuitems=menuitems, error='Failed to run sync: ' + stderr.decode("utf-8"))
 
 	return redirect(url_for('promotion'))
 
@@ -139,7 +139,7 @@ def repo_add():
 
 	error = repo_validate(request.form)
 	if error:
-		return render_template('error.html', menuitems=menuitems, error=error)
+		return render_template('error_normal.html', menuitems=menuitems, error=error)
 
 	repo = Repo(request.form['reponame'], request.form['repourl'])
 	db.session.add(repo)
@@ -155,7 +155,7 @@ def repo_edit(repoid):
 
 	error = repo_validate(request.form)
 	if error:
-		return render_template('error.html', menuitems=menuitems, error=error)
+		return render_template('error_normal.html', menuitems=menuitems, error=error)
 
 	repo.reponame = request.form['reponame']
 	repo.repourl = request.form['repourl']
@@ -207,7 +207,7 @@ def flow_add():
 
 	error = flow_validate(request.form)
 	if error:
-		return render_template('error.html', menuitems=menuitems, error=error)
+		return render_template('error_normal.html', menuitems=menuitems, error=error)
 
 	flow = Flow(request.form['flowname'], request.form['flowsource'], request.form['flowdest'])
 	db.session.add(flow)
@@ -224,7 +224,7 @@ def flow_edit(flowid):
 
 	error = flow_validate(request.form)
 	if error:
-		return render_template('error.html', menuitems=menuitems, error=error)
+		return render_template('error_normal.html', menuitems=menuitems, error=error)
 
 	flow.flowname = request.form['flowname']
 	flow.flowsource = request.form['flowsource']

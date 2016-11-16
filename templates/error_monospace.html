@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "base-menu.html" %}
+An error occurred processing your request: <br /><blockquote style='text-align: left'><tt>{% autoescape false %}{{ error|e|replace("\n","<br />") }}{% endautoescape %}</tt></blockquote>
+{% endblock %}
