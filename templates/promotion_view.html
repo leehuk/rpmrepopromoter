@@ -8,7 +8,7 @@
 			<th>Package</th>
 			<th>State</th>
 			<th>Source</th>
-			<th>Destination</th>
+			<th>Dest</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -25,17 +25,17 @@
 				</td>
 			</tr>
 		{% endif %}
-		{% if states['upgraded_src'] is defined or states['upgraded_dst'] is defined %}
+		{% if states['version_added'] is defined or states['version_removed'] is defined %}
 			<tr style='border-top: 1px solid #aaa;'>
 				<td>{{ rpm }}</td>
 				<td>Upgraded</td>
 				<td>
-					{% for version in states['upgraded_src'] %}
+					{% for version in states['version_removed'] %}
 					{{ version }}<br />
 					{% endfor %}
 				</td>
 				<td>
-					{% for version in states['upgraded_dst'] %}
+					{% for version in states['version_added'] %}
 					{{ version }}<br />
 					{% endfor %}
 				</td>
