@@ -56,7 +56,7 @@ def promotion():
 		flow.reposource = Repo.query.get(flow.flowsource)
 		flow.repodest = Repo.query.get(flow.flowdest)
 
-		qdiffcmd = subprocess.Popen([app.config['RPMREPODIFF'], '-s', flow.reposource.repourl, '-d', flow.repodest.repourl, '-q'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		qdiffcmd = subprocess.Popen([app.config['RPMREPODIFF'], '-s', flow.reposource.repourl, '-d', flow.repodest.repourl], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		stdout, stderr = qdiffcmd.communicate()
 		retval = qdiffcmd.returncode
 
